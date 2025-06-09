@@ -1,0 +1,846 @@
+
+----------
+Loaded log file: "server_log.txt".
+----------
+
+SA-MP Dedicated Server
+----------------------
+v0.3.7-R2, (C)2005-2015 SA-MP Team
+
+[06:57:42] filterscripts = ""  (string)
+[06:57:42] 
+[06:57:42] Server Plugins
+[06:57:42] --------------
+[06:57:42]  Loading plugin: mysql
+[06:57:42]  >> plugin.mysql: R39-6 successfully loaded.
+[06:57:42]   Loaded.
+[06:57:42]  Loading plugin: streamer
+[06:57:42] 
+
+*** Streamer Plugin v2.9.1 by Incognito loaded ***
+
+[06:57:42]   Loaded.
+[06:57:42]  Loading plugin: pawncmd
+[06:57:42] Pawn.CMD plugin v3.2.0 by urShadow has been loaded
+[06:57:42]   Loaded.
+[06:57:42]  Loaded 3 plugins.
+
+[06:57:42] 
+[06:57:42] Filterscripts
+[06:57:42] ---------------
+[06:57:42]   Loaded 0 filterscripts.
+
+[06:57:42] MySQL - connected
+[06:57:42] Number of vehicle models: 0
+[06:58:06] [connection] 127.0.0.1:51830 requests connection cookie.
+[06:58:07] [connection] incoming connection: 127.0.0.1:51830 id: 0
+[06:58:08] [join] Tim_Wiens has joined the server (0:127.0.0.1)
+
+----------
+Loaded log file: "server_log.txt".
+----------
+
+SA-MP Dedicated Server
+----------------------
+v0.3.7-R2, (C)2005-2015 SA-MP Team
+
+[06:58:54] filterscripts = ""  (string)
+[06:58:54] 
+[06:58:54] Server Plugins
+[06:58:54] --------------
+[06:58:54]  Loading plugin: mysql
+[06:58:54]  >> plugin.mysql: R39-6 successfully loaded.
+[06:58:54]   Loaded.
+[06:58:54]  Loading plugin: streamer
+[06:58:54] 
+
+*** Streamer Plugin v2.9.1 by Incognito loaded ***
+
+[06:58:54]   Loaded.
+[06:58:54]  Loading plugin: pawncmd
+[06:58:54] Pawn.CMD plugin v3.2.0 by urShadow has been loaded
+[06:58:54]   Loaded.
+[06:58:54]  Loaded 3 plugins.
+
+[06:58:54] 
+[06:58:54] Filterscripts
+[06:58:54] ---------------
+[06:58:54]   Loaded 0 filterscripts.
+
+[06:58:54] MySQL - connected
+[06:58:54] Number of vehicle models: 0
+[06:58:56] [connection] 127.0.0.1:51831 requests connection cookie.
+[06:58:57] [connection] incoming connection: 127.0.0.1:51831 id: 0
+[06:58:58] [join] Tim_Wiens has joined the server (0:127.0.0.1)
+[06:59:33] [part] Tim_Wiens has left the server (0:1)
+
+----------
+Loaded log file: "server_log.txt".
+----------
+
+SA-MP Dedicated Server
+----------------------
+v0.3.7-R2, (C)2005-2015 SA-MP Team
+
+[07:03:46] filterscripts = ""  (string)
+[07:03:46] 
+[07:03:46] Server Plugins
+[07:03:46] --------------
+[07:03:46]  Loading plugin: mysql
+[07:03:46]  >> plugin.mysql: R39-6 successfully loaded.
+[07:03:46]   Loaded.
+[07:03:46]  Loading plugin: streamer
+[07:03:46] 
+
+*** Streamer Plugin v2.9.1 by Incognito loaded ***
+
+[07:03:46]   Loaded.
+[07:03:46]  Loading plugin: pawncmd
+[07:03:46] Pawn.CMD plugin v3.2.0 by urShadow has been loaded
+[07:03:46]   Loaded.
+[07:03:46]  Loaded 3 plugins.
+
+[07:03:46] 
+[07:03:46] Filterscripts
+[07:03:46] ---------------
+[07:03:46]   Loaded 0 filterscripts.
+
+[07:03:46] MySQL - connected
+[07:03:46] Number of vehicle models: 0
+[07:04:05] [connection] 127.0.0.1:62103 requests connection cookie.
+[07:04:06] [connection] incoming connection: 127.0.0.1:62103 id: 0
+[07:04:07] [join] Tim_Wiens has joined the server (0:127.0.0.1)
+
+----------
+Loaded log file: "server_log.txt".
+----------
+
+SA-MP Dedicated Server
+----------------------
+v0.3.7-R2, (C)2005-2015 SA-MP Team
+
+[07:05:45] filterscripts = ""  (string)
+[07:05:45] 
+[07:05:45] Server Plugins
+[07:05:45] --------------
+[07:05:45]  Loading plugin: mysql
+[07:05:45]  >> plugin.mysql: R39-6 successfully loaded.
+[07:05:45]   Loaded.
+[07:05:45]  Loading plugin: streamer
+[07:05:45] 
+
+*** Streamer Plugin v2.9.1 by Incognito loaded ***
+
+[07:05:45]   Loaded.
+[07:05:45]  Loading plugin: pawncmd
+[07:05:45] Pawn.CMD plugin v3.2.0 by urShadow has been loaded
+[07:05:45]   Loaded.
+[07:05:45]  Loaded 3 plugins.
+
+[07:05:45] 
+[07:05:45] Filterscripts
+[07:05:45] ---------------
+[07:05:45]   Loaded 0 filterscripts.
+
+[07:05:45] MySQL - connected
+[07:05:45] Number of vehicle models: 0
+[07:05:47] [connection] 127.0.0.1:61155 requests connection cookie.
+[07:05:48] [connection] incoming connection: 127.0.0.1:61155 id: 0
+[07:05:48] [join] Tim_Wiens has joined the server (0:127.0.0.1)
+[07:06:00] [part] Tim_Wiens has left the server (0:1)
+
+----------
+Loaded log file: "server_log.txt".
+----------
+
+SA-MP Dedicated Server
+----------------------
+v0.3.7-R2, (C)2005-2015 SA-MP Team
+
+[07:24:13] filterscripts = ""  (string)
+[07:24:13] 
+[07:24:13] Server Plugins
+[07:24:13] --------------
+[07:24:13]  Loading plugin: mysql
+[07:24:13]  >> plugin.mysql: R39-6 successfully loaded.
+[07:24:13]   Loaded.
+[07:24:13]  Loading plugin: streamer
+[07:24:13] 
+
+*** Streamer Plugin v2.9.1 by Incognito loaded ***
+
+[07:24:13]   Loaded.
+[07:24:13]  Loading plugin: pawncmd
+[07:24:13] Pawn.CMD plugin v3.2.0 by urShadow has been loaded
+[07:24:13]   Loaded.
+[07:24:13]  Loaded 3 plugins.
+
+[07:24:13] 
+[07:24:13] Filterscripts
+[07:24:13] ---------------
+[07:24:13]   Loaded 0 filterscripts.
+
+[07:24:13] MySQL - connected
+[07:24:13] Number of vehicle models: 0
+[07:24:37] [connection] 127.0.0.1:65409 requests connection cookie.
+[07:24:38] [connection] incoming connection: 127.0.0.1:65409 id: 0
+[07:24:39] [join] Tim_Wienss has joined the server (0:127.0.0.1)
+[07:24:43] [part] Tim_Wienss has left the server (0:2)
+
+----------
+Loaded log file: "server_log.txt".
+----------
+
+SA-MP Dedicated Server
+----------------------
+v0.3.7-R2, (C)2005-2015 SA-MP Team
+
+[07:26:10] filterscripts = ""  (string)
+[07:26:10] 
+[07:26:10] Server Plugins
+[07:26:10] --------------
+[07:26:10]  Loading plugin: mysql
+[07:26:10]  >> plugin.mysql: R39-6 successfully loaded.
+[07:26:10]   Loaded.
+[07:26:10]  Loading plugin: streamer
+[07:26:10] 
+
+*** Streamer Plugin v2.9.1 by Incognito loaded ***
+
+[07:26:10]   Loaded.
+[07:26:10]  Loading plugin: pawncmd
+[07:26:10] Pawn.CMD plugin v3.2.0 by urShadow has been loaded
+[07:26:10]   Loaded.
+[07:26:10]  Loaded 3 plugins.
+
+[07:26:10] 
+[07:26:10] Filterscripts
+[07:26:10] ---------------
+[07:26:10]   Loaded 0 filterscripts.
+
+[07:26:10] MySQL - connected
+[07:26:10] Number of vehicle models: 0
+[07:26:29] [connection] 127.0.0.1:65411 requests connection cookie.
+[07:26:30] [connection] incoming connection: 127.0.0.1:65411 id: 0
+[07:26:30] [join] Tim_Wienss has joined the server (0:127.0.0.1)
+
+----------
+Loaded log file: "server_log.txt".
+----------
+
+SA-MP Dedicated Server
+----------------------
+v0.3.7-R2, (C)2005-2015 SA-MP Team
+
+[07:27:08] filterscripts = ""  (string)
+[07:27:08] 
+[07:27:08] Server Plugins
+[07:27:08] --------------
+[07:27:08]  Loading plugin: mysql
+[07:27:08]  >> plugin.mysql: R39-6 successfully loaded.
+[07:27:08]   Loaded.
+[07:27:08]  Loading plugin: streamer
+[07:27:08] 
+
+*** Streamer Plugin v2.9.1 by Incognito loaded ***
+
+[07:27:08]   Loaded.
+[07:27:08]  Loading plugin: pawncmd
+[07:27:08] Pawn.CMD plugin v3.2.0 by urShadow has been loaded
+[07:27:08]   Loaded.
+[07:27:08]  Loaded 3 plugins.
+
+[07:27:08] 
+[07:27:08] Filterscripts
+[07:27:08] ---------------
+[07:27:08]   Loaded 0 filterscripts.
+
+[07:27:08] MySQL - connected
+[07:27:08] Number of vehicle models: 0
+[07:27:14] [connection] 127.0.0.1:61666 requests connection cookie.
+[07:27:15] [connection] incoming connection: 127.0.0.1:61666 id: 0
+[07:27:15] [join] Tim_Wienss has joined the server (0:127.0.0.1)
+[07:27:48] [part] Tim_Wienss has left the server (0:0)
+
+----------
+Loaded log file: "server_log.txt".
+----------
+
+SA-MP Dedicated Server
+----------------------
+v0.3.7-R2, (C)2005-2015 SA-MP Team
+
+[07:28:15] filterscripts = ""  (string)
+[07:28:15] 
+[07:28:15] Server Plugins
+[07:28:15] --------------
+[07:28:15]  Loading plugin: mysql
+[07:28:15]  >> plugin.mysql: R39-6 successfully loaded.
+[07:28:15]   Loaded.
+[07:28:15]  Loading plugin: streamer
+[07:28:15] 
+
+*** Streamer Plugin v2.9.1 by Incognito loaded ***
+
+[07:28:15]   Loaded.
+[07:28:15]  Loading plugin: pawncmd
+[07:28:15] Pawn.CMD plugin v3.2.0 by urShadow has been loaded
+[07:28:15]   Loaded.
+[07:28:15]  Loaded 3 plugins.
+
+[07:28:15] 
+[07:28:15] Filterscripts
+[07:28:15] ---------------
+[07:28:15]   Loaded 0 filterscripts.
+
+[07:28:15] MySQL - connected
+[07:28:15] Number of vehicle models: 0
+[07:28:33] [connection] 127.0.0.1:55976 requests connection cookie.
+[07:28:34] [connection] incoming connection: 127.0.0.1:55976 id: 0
+[07:28:34] [join] Tim_Wienss has joined the server (0:127.0.0.1)
+[07:28:41] [part] Tim_Wienss has left the server (0:1)
+
+----------
+Loaded log file: "server_log.txt".
+----------
+
+SA-MP Dedicated Server
+----------------------
+v0.3.7-R2, (C)2005-2015 SA-MP Team
+
+[07:44:45] filterscripts = ""  (string)
+[07:44:45] 
+[07:44:45] Server Plugins
+[07:44:45] --------------
+[07:44:45]  Loading plugin: mysql
+[07:44:45]  >> plugin.mysql: R39-6 successfully loaded.
+[07:44:45]   Loaded.
+[07:44:45]  Loading plugin: streamer
+[07:44:45] 
+
+*** Streamer Plugin v2.9.1 by Incognito loaded ***
+
+[07:44:45]   Loaded.
+[07:44:45]  Loading plugin: pawncmd
+[07:44:45] Pawn.CMD plugin v3.2.0 by urShadow has been loaded
+[07:44:45]   Loaded.
+[07:44:45]  Loaded 3 plugins.
+
+[07:44:45] 
+[07:44:45] Filterscripts
+[07:44:45] ---------------
+[07:44:45]   Loaded 0 filterscripts.
+
+[07:44:45] MySQL - connected
+[07:44:45] Number of vehicle models: 0
+[07:45:03] [connection] 127.0.0.1:64582 requests connection cookie.
+[07:45:04] [connection] incoming connection: 127.0.0.1:64582 id: 0
+[07:45:04] [join] Tim_Wiensq has joined the server (0:127.0.0.1)
+[07:49:36] [part] Tim_Wiensq has left the server (0:1)
+[07:49:57] [connection] 127.0.0.1:58105 requests connection cookie.
+[07:49:58] [connection] incoming connection: 127.0.0.1:58105 id: 0
+[07:49:59] [join] Tim_Wiensq has joined the server (0:127.0.0.1)
+[07:50:37] [part] Tim_Wiensq has left the server (0:2)
+[07:51:16] [connection] 127.0.0.1:58106 requests connection cookie.
+[07:51:17] [connection] incoming connection: 127.0.0.1:58106 id: 0
+[07:51:17] [join] Tim_Wiensq has joined the server (0:127.0.0.1)
+[07:51:55] [part] Tim_Wiensq has left the server (0:2)
+[07:52:28] [connection] 127.0.0.1:58108 requests connection cookie.
+[07:52:29] [connection] incoming connection: 127.0.0.1:58108 id: 0
+[07:52:30] [join] Tim_Wiensq has joined the server (0:127.0.0.1)
+[07:53:08] [part] Tim_Wiensq has left the server (0:2)
+
+----------
+Loaded log file: "server_log.txt".
+----------
+
+SA-MP Dedicated Server
+----------------------
+v0.3.7-R2, (C)2005-2015 SA-MP Team
+
+[07:53:59] filterscripts = ""  (string)
+[07:53:59] 
+[07:53:59] Server Plugins
+[07:53:59] --------------
+[07:53:59]  Loading plugin: mysql
+[07:53:59]  >> plugin.mysql: R39-6 successfully loaded.
+[07:53:59]   Loaded.
+[07:53:59]  Loading plugin: streamer
+[07:53:59] 
+
+*** Streamer Plugin v2.9.1 by Incognito loaded ***
+
+[07:53:59]   Loaded.
+[07:53:59]  Loading plugin: pawncmd
+[07:53:59] Pawn.CMD plugin v3.2.0 by urShadow has been loaded
+[07:53:59]   Loaded.
+[07:53:59]  Loaded 3 plugins.
+
+[07:53:59] 
+[07:53:59] Filterscripts
+[07:53:59] ---------------
+[07:53:59]   Loaded 0 filterscripts.
+
+[07:53:59] MySQL - connected
+[07:53:59] Number of vehicle models: 0
+[07:54:00] [connection] 127.0.0.1:65239 requests connection cookie.
+[07:54:01] [connection] incoming connection: 127.0.0.1:65239 id: 0
+[07:54:02] [join] Tim_Wiensq has joined the server (0:127.0.0.1)
+[07:54:09] [part] Tim_Wiensq has left the server (0:1)
+
+----------
+Loaded log file: "server_log.txt".
+----------
+
+SA-MP Dedicated Server
+----------------------
+v0.3.7-R2, (C)2005-2015 SA-MP Team
+
+[08:52:38] filterscripts = ""  (string)
+[08:52:38] 
+[08:52:38] Server Plugins
+[08:52:38] --------------
+[08:52:38]  Loading plugin: mysql
+[08:52:38]  >> plugin.mysql: R39-6 successfully loaded.
+[08:52:38]   Loaded.
+[08:52:38]  Loading plugin: streamer
+[08:52:38] 
+
+*** Streamer Plugin v2.9.1 by Incognito loaded ***
+
+[08:52:38]   Loaded.
+[08:52:38]  Loading plugin: pawncmd
+[08:52:38] Pawn.CMD plugin v3.2.0 by urShadow has been loaded
+[08:52:38]   Loaded.
+[08:52:38]  Loaded 3 plugins.
+
+[08:52:38] 
+[08:52:38] Filterscripts
+[08:52:38] ---------------
+[08:52:38]   Loaded 0 filterscripts.
+
+[08:52:38] MySQL - connected
+[08:52:38] Number of vehicle models: 0
+[08:52:56] [connection] 127.0.0.1:63566 requests connection cookie.
+[08:52:57] [connection] incoming connection: 127.0.0.1:63566 id: 0
+[08:52:57] [join] Tim_Wiensq has joined the server (0:127.0.0.1)
+
+----------
+Loaded log file: "server_log.txt".
+----------
+
+SA-MP Dedicated Server
+----------------------
+v0.3.7-R2, (C)2005-2015 SA-MP Team
+
+[08:55:35] filterscripts = ""  (string)
+[08:55:35] 
+[08:55:35] Server Plugins
+[08:55:35] --------------
+[08:55:35]  Loading plugin: mysql
+[08:55:35]  >> plugin.mysql: R39-6 successfully loaded.
+[08:55:35]   Loaded.
+[08:55:35]  Loading plugin: streamer
+[08:55:35] 
+
+*** Streamer Plugin v2.9.1 by Incognito loaded ***
+
+[08:55:35]   Loaded.
+[08:55:35]  Loading plugin: pawncmd
+[08:55:35] Pawn.CMD plugin v3.2.0 by urShadow has been loaded
+[08:55:35]   Loaded.
+[08:55:35]  Loaded 3 plugins.
+
+[08:55:35] 
+[08:55:35] Filterscripts
+[08:55:35] ---------------
+[08:55:35]   Loaded 0 filterscripts.
+
+[08:55:35] MySQL - connected
+[08:55:35] Number of vehicle models: 0
+[08:55:47] [connection] 127.0.0.1:64801 requests connection cookie.
+[08:55:48] [connection] incoming connection: 127.0.0.1:64801 id: 0
+[08:55:49] [join] Tim_Wiensq has joined the server (0:127.0.0.1)
+
+----------
+Loaded log file: "server_log.txt".
+----------
+
+SA-MP Dedicated Server
+----------------------
+v0.3.7-R2, (C)2005-2015 SA-MP Team
+
+[08:57:24] filterscripts = ""  (string)
+[08:57:24] 
+[08:57:24] Server Plugins
+[08:57:24] --------------
+[08:57:24]  Loading plugin: mysql
+[08:57:24]  >> plugin.mysql: R39-6 successfully loaded.
+[08:57:24]   Loaded.
+[08:57:24]  Loading plugin: streamer
+[08:57:24] 
+
+*** Streamer Plugin v2.9.1 by Incognito loaded ***
+
+[08:57:24]   Loaded.
+[08:57:24]  Loading plugin: pawncmd
+[08:57:24] Pawn.CMD plugin v3.2.0 by urShadow has been loaded
+[08:57:24]   Loaded.
+[08:57:24]  Loaded 3 plugins.
+
+[08:57:24] 
+[08:57:24] Filterscripts
+[08:57:24] ---------------
+[08:57:24]   Loaded 0 filterscripts.
+
+[08:57:24] MySQL - connected
+[08:57:24] Number of vehicle models: 0
+[08:57:26] [connection] 127.0.0.1:58832 requests connection cookie.
+[08:57:27] [connection] incoming connection: 127.0.0.1:58832 id: 0
+[08:57:27] [join] Tim_Wiensq has joined the server (0:127.0.0.1)
+
+----------
+Loaded log file: "server_log.txt".
+----------
+
+SA-MP Dedicated Server
+----------------------
+v0.3.7-R2, (C)2005-2015 SA-MP Team
+
+[09:14:44] filterscripts = ""  (string)
+[09:14:44] 
+[09:14:44] Server Plugins
+[09:14:44] --------------
+[09:14:44]  Loading plugin: mysql
+[09:14:44]  >> plugin.mysql: R39-6 successfully loaded.
+[09:14:44]   Loaded.
+[09:14:44]  Loading plugin: streamer
+[09:14:44] 
+
+*** Streamer Plugin v2.9.1 by Incognito loaded ***
+
+[09:14:44]   Loaded.
+[09:14:44]  Loading plugin: pawncmd
+[09:14:44] Pawn.CMD plugin v3.2.0 by urShadow has been loaded
+[09:14:44]   Loaded.
+[09:14:44]  Loaded 3 plugins.
+
+[09:14:44] 
+[09:14:44] Filterscripts
+[09:14:44] ---------------
+[09:14:44]   Loaded 0 filterscripts.
+
+[09:14:44] MySQL - connected
+[09:14:44] Number of vehicle models: 0
+[09:14:46] [connection] 127.0.0.1:53573 requests connection cookie.
+[09:14:47] [connection] incoming connection: 127.0.0.1:53573 id: 0
+[09:14:57] [connection] incoming connection: 127.0.0.1:53574 id: 0
+[09:14:57] [join] Tim_Wiensq has joined the server (0:127.0.0.1)
+[09:16:28] [part] Tim_Wiensq has left the server (0:1)
+
+----------
+Loaded log file: "server_log.txt".
+----------
+
+SA-MP Dedicated Server
+----------------------
+v0.3.7-R2, (C)2005-2015 SA-MP Team
+
+[09:18:19] filterscripts = ""  (string)
+[09:18:19] 
+[09:18:19] Server Plugins
+[09:18:19] --------------
+[09:18:19]  Loading plugin: mysql
+[09:18:19]  >> plugin.mysql: R39-6 successfully loaded.
+[09:18:19]   Loaded.
+[09:18:19]  Loading plugin: streamer
+[09:18:19] 
+
+*** Streamer Plugin v2.9.1 by Incognito loaded ***
+
+[09:18:19]   Loaded.
+[09:18:19]  Loading plugin: pawncmd
+[09:18:19] Pawn.CMD plugin v3.2.0 by urShadow has been loaded
+[09:18:19]   Loaded.
+[09:18:19]  Loaded 3 plugins.
+
+[09:18:19] 
+[09:18:19] Filterscripts
+[09:18:19] ---------------
+[09:18:19]   Loaded 0 filterscripts.
+
+[09:18:19] MySQL - connected
+[09:18:19] Number of vehicle models: 0
+[09:18:38] [connection] 127.0.0.1:50454 requests connection cookie.
+[09:18:39] [connection] incoming connection: 127.0.0.1:50454 id: 0
+[09:18:39] [join] Tim_Wiens has joined the server (0:127.0.0.1)
+[09:22:09] [part] Tim_Wiens has left the server (0:1)
+
+----------
+Loaded log file: "server_log.txt".
+----------
+
+SA-MP Dedicated Server
+----------------------
+v0.3.7-R2, (C)2005-2015 SA-MP Team
+
+[15:17:32] filterscripts = ""  (string)
+[15:17:32] 
+[15:17:32] Server Plugins
+[15:17:32] --------------
+[15:17:32]  Loading plugin: mysql
+[15:17:32]  >> plugin.mysql: R39-6 successfully loaded.
+[15:17:32]   Loaded.
+[15:17:32]  Loading plugin: streamer
+[15:17:32] 
+
+*** Streamer Plugin v2.9.1 by Incognito loaded ***
+
+[15:17:32]   Loaded.
+[15:17:32]  Loading plugin: pawncmd
+[15:17:32] Pawn.CMD plugin v3.2.0 by urShadow has been loaded
+[15:17:32]   Loaded.
+[15:17:32]  Loaded 3 plugins.
+
+[15:17:32] 
+[15:17:32] Filterscripts
+[15:17:32] ---------------
+[15:17:32]   Loaded 0 filterscripts.
+
+[15:17:32] MySQL - connected
+[15:17:32] Number of vehicle models: 0
+[15:17:57] [connection] 127.0.0.1:52508 requests connection cookie.
+[15:17:58] [connection] incoming connection: 127.0.0.1:52508 id: 0
+[15:17:58] [join] Seth_Floyd has joined the server (0:127.0.0.1)
+[15:19:22] [part] Seth_Floyd has left the server (0:1)
+[15:20:21] [connection] 127.0.0.1:65261 requests connection cookie.
+[15:20:22] [connection] incoming connection: 127.0.0.1:65261 id: 0
+[15:20:22] [join] Seth_Floy has joined the server (0:127.0.0.1)
+[15:22:02] [part] Seth_Floy has left the server (0:0)
+[15:22:09] [connection] 127.0.0.1:65268 requests connection cookie.
+[15:22:10] [connection] incoming connection: 127.0.0.1:65268 id: 0
+[15:22:10] [join] Seth_Floy has joined the server (0:127.0.0.1)
+
+----------
+Loaded log file: "server_log.txt".
+----------
+
+SA-MP Dedicated Server
+----------------------
+v0.3.7-R2, (C)2005-2015 SA-MP Team
+
+[15:25:36] filterscripts = ""  (string)
+[15:25:36] 
+[15:25:36] Server Plugins
+[15:25:36] --------------
+[15:25:36]  Loading plugin: mysql
+[15:25:36]  >> plugin.mysql: R39-6 successfully loaded.
+[15:25:36]   Loaded.
+[15:25:36]  Loading plugin: streamer
+[15:25:36] 
+
+*** Streamer Plugin v2.9.1 by Incognito loaded ***
+
+[15:25:36]   Loaded.
+[15:25:36]  Loading plugin: pawncmd
+[15:25:36] Pawn.CMD plugin v3.2.0 by urShadow has been loaded
+[15:25:36]   Loaded.
+[15:25:36]  Loaded 3 plugins.
+
+[15:25:36] 
+[15:25:36] Filterscripts
+[15:25:36] ---------------
+[15:25:36]   Loaded 0 filterscripts.
+
+[15:25:36] MySQL - connected
+[15:25:36] Number of vehicle models: 0
+[15:25:38] [connection] 127.0.0.1:55017 requests connection cookie.
+[15:25:39] [connection] incoming connection: 127.0.0.1:55017 id: 0
+[15:25:39] [join] Seth_Floy has joined the server (0:127.0.0.1)
+[15:25:49] [part] Seth_Floy has left the server (0:1)
+
+----------
+Loaded log file: "server_log.txt".
+----------
+
+SA-MP Dedicated Server
+----------------------
+v0.3.7-R2, (C)2005-2015 SA-MP Team
+
+[15:26:21] filterscripts = ""  (string)
+[15:26:21] 
+[15:26:21] Server Plugins
+[15:26:21] --------------
+[15:26:21]  Loading plugin: mysql
+[15:26:21]  >> plugin.mysql: R39-6 successfully loaded.
+[15:26:21]   Loaded.
+[15:26:21]  Loading plugin: streamer
+[15:26:21] 
+
+*** Streamer Plugin v2.9.1 by Incognito loaded ***
+
+[15:26:21]   Loaded.
+[15:26:21]  Loading plugin: pawncmd
+[15:26:21] Pawn.CMD plugin v3.2.0 by urShadow has been loaded
+[15:26:21]   Loaded.
+[15:26:21]  Loaded 3 plugins.
+
+[15:26:21] 
+[15:26:21] Filterscripts
+[15:26:21] ---------------
+[15:26:21]   Loaded 0 filterscripts.
+
+[15:26:21] MySQL - connected
+[15:26:21] Number of vehicle models: 0
+[15:26:37] [connection] 127.0.0.1:51545 requests connection cookie.
+[15:26:38] [connection] incoming connection: 127.0.0.1:51545 id: 0
+[15:26:38] [join] Seth_Floy has joined the server (0:127.0.0.1)
+[15:27:45] [part] Seth_Floy has left the server (0:1)
+
+----------
+Loaded log file: "server_log.txt".
+----------
+
+SA-MP Dedicated Server
+----------------------
+v0.3.7-R2, (C)2005-2015 SA-MP Team
+
+[15:30:36] filterscripts = ""  (string)
+[15:30:36] 
+[15:30:36] Server Plugins
+[15:30:36] --------------
+[15:30:36]  Loading plugin: mysql
+[15:30:36]  >> plugin.mysql: R39-6 successfully loaded.
+[15:30:36]   Loaded.
+[15:30:36]  Loading plugin: streamer
+[15:30:36] 
+
+*** Streamer Plugin v2.9.1 by Incognito loaded ***
+
+[15:30:36]   Loaded.
+[15:30:36]  Loading plugin: pawncmd
+[15:30:36] Pawn.CMD plugin v3.2.0 by urShadow has been loaded
+[15:30:36]   Loaded.
+[15:30:36]  Loaded 3 plugins.
+
+[15:30:36] 
+[15:30:36] Filterscripts
+[15:30:36] ---------------
+[15:30:36]   Loaded 0 filterscripts.
+
+[15:30:36] MySQL - connected
+[15:30:36] Number of vehicle models: 0
+[15:31:24] [connection] 127.0.0.1:49897 requests connection cookie.
+[15:31:25] [connection] incoming connection: 127.0.0.1:49897 id: 0
+[15:31:25] [join] Seth_Floy has joined the server (0:127.0.0.1)
+[15:33:20] [part] Seth_Floy has left the server (0:1)
+
+----------
+Loaded log file: "server_log.txt".
+----------
+
+SA-MP Dedicated Server
+----------------------
+v0.3.7-R2, (C)2005-2015 SA-MP Team
+
+[15:54:21] filterscripts = ""  (string)
+[15:54:21] 
+[15:54:21] Server Plugins
+[15:54:21] --------------
+[15:54:21]  Loading plugin: mysql
+[15:54:21]  >> plugin.mysql: R39-6 successfully loaded.
+[15:54:21]   Loaded.
+[15:54:21]  Loading plugin: streamer
+[15:54:21] 
+
+*** Streamer Plugin v2.9.1 by Incognito loaded ***
+
+[15:54:21]   Loaded.
+[15:54:21]  Loading plugin: pawncmd
+[15:54:21] Pawn.CMD plugin v3.2.0 by urShadow has been loaded
+[15:54:21]   Loaded.
+[15:54:21]  Loaded 3 plugins.
+
+[15:54:21] 
+[15:54:21] Filterscripts
+[15:54:21] ---------------
+[15:54:21]   Loaded 0 filterscripts.
+
+[15:54:21] MySQL - connected
+[15:54:21] Number of vehicle models: 0
+
+----------
+Loaded log file: "server_log.txt".
+----------
+
+SA-MP Dedicated Server
+----------------------
+v0.3.7-R2, (C)2005-2015 SA-MP Team
+
+[12:09:32] filterscripts = ""  (string)
+[12:09:32] 
+[12:09:32] Server Plugins
+[12:09:32] --------------
+[12:09:32]  Loading plugin: mysql
+[12:09:32]  >> plugin.mysql: R39-6 successfully loaded.
+[12:09:32]   Loaded.
+[12:09:32]  Loading plugin: streamer
+[12:09:32] 
+
+*** Streamer Plugin v2.9.1 by Incognito loaded ***
+
+[12:09:32]   Loaded.
+[12:09:32]  Loading plugin: pawncmd
+[12:09:32] Pawn.CMD plugin v3.2.0 by urShadow has been loaded
+[12:09:32]   Loaded.
+[12:09:32]  Loaded 3 plugins.
+
+[12:09:32] 
+[12:09:32] Filterscripts
+[12:09:32] ---------------
+[12:09:32]   Loaded 0 filterscripts.
+
+[12:09:32] MySQL - connected
+[12:09:32] Number of vehicle models: 0
+
+----------
+Loaded log file: "server_log.txt".
+----------
+
+SA-MP Dedicated Server
+----------------------
+v0.3.7-R2, (C)2005-2015 SA-MP Team
+
+[12:10:31] filterscripts = ""  (string)
+[12:10:31] 
+[12:10:31] Server Plugins
+[12:10:31] --------------
+[12:10:31]  Loading plugin: mysql
+[12:10:31]  >> plugin.mysql: R39-6 successfully loaded.
+[12:10:31]   Loaded.
+[12:10:31]  Loading plugin: streamer
+[12:10:31] 
+
+*** Streamer Plugin v2.9.1 by Incognito loaded ***
+
+[12:10:31]   Loaded.
+[12:10:31]  Loading plugin: pawncmd
+[12:10:31] Pawn.CMD plugin v3.2.0 by urShadow has been loaded
+[12:10:31]   Loaded.
+[12:10:31]  Loaded 3 plugins.
+
+[12:10:32] 
+[12:10:32] Filterscripts
+[12:10:32] ---------------
+[12:10:32]   Loaded 0 filterscripts.
+
+[12:10:32] MySQL - connected
+[12:10:32] Number of vehicle models: 0
+[12:11:08] [connection] 127.0.0.1:59157 requests connection cookie.
+[12:11:09] [connection] incoming connection: 127.0.0.1:59157 id: 0
+[12:11:10] [join] Alina_Kurilova has joined the server (0:127.0.0.1)
+[12:12:10] [part] Alina_Kurilova has left the server (0:1)
+[12:14:05] [connection] 127.0.0.1:61300 requests connection cookie.
+[12:14:06] [connection] incoming connection: 127.0.0.1:61300 id: 0
+[12:14:06] [join] Alina_Kurilova has joined the server (0:127.0.0.1)
+[12:14:33] [part] Alina_Kurilova has left the server (0:1)
