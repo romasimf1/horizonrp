@@ -1,15 +1,16 @@
-// == == == == [ Инклуды ] == == == ==
+#include "modules/grove.inc"
+// == == == == [ Г€Г­ГЄГ«ГіГ¤Г» ] == == == ==
 #include <a_samp>
 #include <a_mysql>
 #include <Pawn.CMD>
 #include <streamer>
 #include <foreach>
-// == == == == [ MySQL БД ] == == == ==
+// == == == == [ MySQL ГЃГ„ ] == == == ==
 #define MySQL_Host "127.0.0.1"
 #define MySQL_User "root"
 #define MySQL_Base "new"
 #define MySQL_Pass ""
-// == == == == [ Диалоги ] == == == ==
+// == == == == [ Г„ГЁГ Г«Г®ГЈГЁ ] == == == ==
 #define SPD ShowPlayerDialog
 #define SCM SendClientMessage
 #define SCMTA SendClientMessageToAll
@@ -17,7 +18,7 @@
 #define DSI DIALOG_STYLE_INPUT
 #define DSM DIALOG_STYLE_MSGBOX
 #define DSP DIALOG_STYLE_PASSWORD
-// == == == == [ Цвета ] == == == ==
+// == == == == [ Г–ГўГҐГІГ  ] == == == ==
 #define Color_Brown 0xA52A2AFF
 #define Color_Blue 0x00BFFFFF
 #define Color_Crimson 0xDC143CFF
@@ -34,13 +35,18 @@
 #define Color_White 0xFFFFFFFF
 #define Color_Yellow 0xFFFF00FF
 #define Color_LightRed 0xFF463CFF
-// == == == == [ Дефайны ] == == == ==
+// == == == == [ Г„ГҐГґГ Г©Г­Г» ] == == == ==
 #define Freeze(%0,%1) TogglePlayerControllable(%0, %1)
 #define Pkick(%0) SetTimerEx("TimeKick", 80, false, "i", %0)
 #if !defined isnull
 #define isnull(%0) ((!(%0[0])) || (((%0[0]) == '\1') && (!(%0[1]))))
 #endif
-// == == == == [ Форврады ] == == == ==
+new GroveWarehouse = 0,
+    bool:GroveWarehouseLocked = false;
+        pFaction,
+        pRank,
+        pMaterials
+// == == == == [ Г”Г®Г°ГўГ°Г Г¤Г» ] == == == ==
 forward PlayerCheck(playerid);
 forward PlayerLogin(playerid);
 forward CheckReferal(playerid, name[]);
@@ -50,7 +56,7 @@ forward TimeKick(playerid);
 forward UpdateTime(playerid);
 forward GetID(playerid);
 forward FastSpawn(playerid);
-// == == == == [ Переменные ] == == == ==
+// == == == == [ ГЏГҐГ°ГҐГ¬ГҐГ­Г­Г»ГҐ ] == == == ==
 new dbHandle,
     number_skin[MAX_PLAYERS char],
     number_pass[MAX_PLAYERS char],
@@ -60,7 +66,7 @@ new dbHandle,
     login_timer[MAX_PLAYERS],
     
     bool: login_check[MAX_PLAYERS char];
-// == == == == [ Информация Игрока ] == == == ==
+// == == == == [ Г€Г­ГґГ®Г°Г¬Г Г¶ГЁГї Г€ГЈГ°Г®ГЄГ  ] == == == ==
 enum player
 {
 	pID,
@@ -77,7 +83,7 @@ enum player
 	pLevel
 }
 new pInfo[MAX_PLAYERS][player];
-// == == == == [ Паблики ] == == == ==
+// == == == == [ ГЏГ ГЎГ«ГЁГЄГЁ ] == == == ==
 public OnGameModeInit()
 {
 	SetGameModeText("Role Play");
@@ -90,7 +96,7 @@ public OnGameModeInit()
 	DisableInteriorEnterExits();
 	EnableStuntBonusForAll(0);
 	
-	// == == == [ Интерьер Регистрации/Авторизации ] == == ==
+	// == == == [ Г€Г­ГІГҐГ°ГјГҐГ° ГђГҐГЈГЁГ±ГІГ°Г Г¶ГЁГЁ/ГЂГўГІГ®Г°ГЁГ§Г Г¶ГЁГЁ ] == == ==
 	new tmpobjid, map_world = -1, map_int = -1;
 	tmpobjid = CreateDynamicObject(19377, 247.991806, 34.998001, 1006.241271, 0.000000, 90.000000, 0.000000, map_world, map_int, -1, 300.00, 300.00);
 	SetDynamicObjectMaterial(tmpobjid, 0, 18646, "matcolours", "grey-80-percent", 0x00000000);
@@ -274,7 +280,7 @@ public OnPlayerRequestClass(playerid, classid)
 }
 public OnPlayerConnect(playerid)
 {
-//*********************************логотип**************************************
+//*********************************Г«Г®ГЈГ®ГІГЁГЇ**************************************
 	new Text:Textdraw0;
 	new Text:Textdraw1;
 	new Text:Textdraw2;
@@ -378,7 +384,7 @@ public OnPlayerText(playerid, text[])
 {
     if(login_check{playerid} == false)
 	{
-	    SCM(playerid, Color_Grey, !"Вы не авторизованы.");
+	    SCM(playerid, Color_Grey, !"Г‚Г» Г­ГҐ Г ГўГІГ®Г°ГЁГ§Г®ГўГ Г­Г».");
 	    return false;
 	}
 	return false;
@@ -500,24 +506,24 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 	            if(!len)
 	            {
 	                ShowRegister(playerid);
-	                return SCM(playerid, Color_Grey, "Вы ничего не ввели.");
+	                return SCM(playerid, Color_Grey, "Г‚Г» Г­ГЁГ·ГҐГЈГ® Г­ГҐ ГўГўГҐГ«ГЁ.");
 	            }
 	            if(!(6 <= len <= 32))
 	            {
 	                ShowRegister(playerid);
-					return SCM(playerid, Color_Grey, !"Неверная длина пароля.");
+					return SCM(playerid, Color_Grey, !"ГЌГҐГўГҐГ°Г­Г Гї Г¤Г«ГЁГ­Г  ГЇГ Г°Г®Г«Гї.");
 	            }
 	            if(CheckRusText(inputtext, len+1))
 				{
 				    ShowRegister(playerid);
-				    return SCM(playerid, Color_Grey, !"Смените раскладку клавиатуры.");
+				    return SCM(playerid, Color_Grey, !"Г‘Г¬ГҐГ­ГЁГІГҐ Г°Г Г±ГЄГ«Г Г¤ГЄГі ГЄГ«Г ГўГЁГ ГІГіГ°Г».");
 				}
 				strmid(pInfo[playerid][pPass], inputtext, 0, len, 32+1);
 				ShowPassCheck(playerid);
 	        }
 	        else
 	        {
-	            SCM(playerid, Color_FireBrick, !"Введите /q[uit]");
+	            SCM(playerid, Color_FireBrick, !"Г‚ГўГҐГ¤ГЁГІГҐ /q[uit]");
 	            Pkick(playerid);
 	        }
 	    }
@@ -526,7 +532,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			if(!strcmp(pInfo[playerid][pPass], inputtext)) ShowEmail(playerid);
 			else
 			{
-			    SCM(playerid, Color_LightRed, !"Неверный пароль.");
+			    SCM(playerid, Color_LightRed, !"ГЌГҐГўГҐГ°Г­Г»Г© ГЇГ Г°Г®Г«Гј.");
 				return Pkick(playerid);
 			}
 	    }
@@ -537,22 +543,22 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				if(!len)
 				{
 				    ShowEmail(playerid);
-				    return SCM(playerid, Color_Grey, !"Вы ничего не ввели.");
+				    return SCM(playerid, Color_Grey, !"Г‚Г» Г­ГЁГ·ГҐГЈГ® Г­ГҐ ГўГўГҐГ«ГЁ.");
 				}
 				if(!(6 <= len <= 46))
 				{
 				    ShowEmail(playerid);
-				    return SCM(playerid, Color_Grey, !"Неверная длина Элетронной почты.");
+				    return SCM(playerid, Color_Grey, !"ГЌГҐГўГҐГ°Г­Г Гї Г¤Г«ГЁГ­Г  ГќГ«ГҐГІГ°Г®Г­Г­Г®Г© ГЇГ®Г·ГІГ».");
 				}
 				if(strfind(inputtext, "@", false) == -1 || strfind(inputtext, ".", false) == -1)
 				{
 				    ShowEmail(playerid);
-				    return SCM(playerid, Color_Grey, !"Неверный формат Электронной почты.");
+				    return SCM(playerid, Color_Grey, !"ГЌГҐГўГҐГ°Г­Г»Г© ГґГ®Г°Г¬Г ГІ ГќГ«ГҐГЄГІГ°Г®Г­Г­Г®Г© ГЇГ®Г·ГІГ».");
 				}
 				if(CheckRusText(inputtext, len+1))
 				{
 				    ShowEmail(playerid);
-				    return SCM(playerid, Color_Grey, !"Смените раскладку клавиатуры.");
+				    return SCM(playerid, Color_Grey, !"Г‘Г¬ГҐГ­ГЁГІГҐ Г°Г Г±ГЄГ«Г Г¤ГЄГі ГЄГ«Г ГўГЁГ ГІГіГ°Г».");
 				}
 				strmid(pInfo[playerid][pEmail], inputtext, 0, len, 46+1);
 				ShowReferal(playerid);
@@ -566,7 +572,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		        if(isnull(inputtext))
 				{
 				    ShowReferal(playerid);
-				    return SCM(playerid, Color_Grey, !"Вы ничего не ввели.");
+				    return SCM(playerid, Color_Grey, !"Г‚Г» Г­ГЁГ·ГҐГЈГ® Г­ГҐ ГўГўГҐГ«ГЁ.");
 				}
 				static fmt_str[] = "SELECT `ID` FROM `users` WHERE `Name` = '%e' LIMIT 1";
 				new string[sizeof(fmt_str)+(-2+MAX_PLAYER_NAME)];
@@ -591,12 +597,12 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 	            if(isnull(inputtext))
 				{
 				    ShowAge(playerid);
-				    return SCM(playerid, Color_Grey, !"Вы ничего не ввели.");
+				    return SCM(playerid, Color_Grey, !"Г‚Г» Г­ГЁГ·ГҐГЈГ® Г­ГҐ ГўГўГҐГ«ГЁ.");
 				}
 				if(!(1 <= val <= 99))
 				{
 				    ShowAge(playerid);
-				    return SCM(playerid, Color_Grey, !"Неверная длина возраста.");
+				    return SCM(playerid, Color_Grey, !"ГЌГҐГўГҐГ°Г­Г Гї Г¤Г«ГЁГ­Г  ГўГ®Г§Г°Г Г±ГІГ .");
 				}
 				pInfo[playerid][pAge] = val;
 				ShowSex(playerid);
@@ -635,7 +641,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 	        	if(isnull(inputtext))
 				{
 	                ShowLogin(playerid);
-	                return SCM(playerid, Color_Grey, "Вы ничего не ввели.");
+	                return SCM(playerid, Color_Grey, "Г‚Г» Г­ГЁГ·ГҐГЈГ® Г­ГҐ ГўГўГҐГ«ГЁ.");
 	            }
 				static fmt_str[] = "SELECT * FROM `users` WHERE `ID` = '%d' AND `Pass` = '%e' LIMIT 1";
 				new string[sizeof(fmt_str)+37];
@@ -644,7 +650,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			}
 			else
 			{
-			    SCM(playerid, Color_FireBrick, !"Введите /q[uit]");
+			    SCM(playerid, Color_FireBrick, !"Г‚ГўГҐГ¤ГЁГІГҐ /q[uit]");
 	            Pkick(playerid);
 			}
 	    }
@@ -659,7 +665,7 @@ public OnPlayerCommandReceived(playerid, cmd[], params[], flags)
 {
     if(login_check{playerid} == false)
 	{
-	    SCM(playerid, Color_Grey, !"Вы не авторизованы.");
+	    SCM(playerid, Color_Grey, !"Г‚Г» Г­ГҐ Г ГўГІГ®Г°ГЁГ§Г®ГўГ Г­Г».");
 	    return false;
 	}
 	return true;
@@ -684,7 +690,7 @@ public OnPlayerClickTextDraw(playerid, Text: clickedid)
 
 	    switch(number_skin{playerid})
 	    {
-	        // == == == [Мужские] == == ==
+	        // == == == [ГЊГіГ¦Г±ГЄГЁГҐ] == == ==
 	        case 1: SetPlayerSkin(playerid, 32);
 	        case 2: SetPlayerSkin(playerid, 78);
 	        case 3: SetPlayerSkin(playerid, 79);
@@ -699,7 +705,7 @@ public OnPlayerClickTextDraw(playerid, Text: clickedid)
 	        case 12: SetPlayerSkin(playerid, 213);
 	        case 13: SetPlayerSkin(playerid, 230);
 	        case 14: SetPlayerSkin(playerid, 239);
-	        // == == == [Женские] == == ==
+	        // == == == [Г†ГҐГ­Г±ГЄГЁГҐ] == == ==
 	        case 15: SetPlayerSkin(playerid, 63);
 	        case 16: SetPlayerSkin(playerid, 64);
 	        case 17: SetPlayerSkin(playerid, 75);
@@ -731,7 +737,7 @@ public OnPlayerClickTextDraw(playerid, Text: clickedid)
 		}
 	    switch(number_skin{playerid})
 	    {
-	        // == == == [Мужские] == == ==
+	        // == == == [ГЊГіГ¦Г±ГЄГЁГҐ] == == ==
 	        case 1: SetPlayerSkin(playerid, 32);
 	        case 2: SetPlayerSkin(playerid, 78);
 	        case 3: SetPlayerSkin(playerid, 79);
@@ -746,7 +752,7 @@ public OnPlayerClickTextDraw(playerid, Text: clickedid)
 	        case 12: SetPlayerSkin(playerid, 213);
 	        case 13: SetPlayerSkin(playerid, 230);
 	        case 14: SetPlayerSkin(playerid, 239);
-	        // == == == [Женские] == == ==
+	        // == == == [Г†ГҐГ­Г±ГЄГЁГҐ] == == ==
 	        case 15: SetPlayerSkin(playerid, 63);
 	        case 16: SetPlayerSkin(playerid, 64);
 	        case 17: SetPlayerSkin(playerid, 75);
@@ -769,13 +775,13 @@ public OnPlayerClickTextDraw(playerid, Text: clickedid)
 	        month_server,
 	        day_server;
 		for(new i; i != 11; i++) TextDrawHideForPlayer(playerid, select_skin[playerid][i]);
-	    SCM(playerid, Color_White, !"Вы успешно зарегистрировались");
+	    SCM(playerid, Color_White, !"Г‚Г» ГіГ±ГЇГҐГёГ­Г® Г§Г Г°ГҐГЈГЁГ±ГІГ°ГЁГ°Г®ГўГ Г«ГЁГ±Гј");
 	    login_check{playerid} = true;
 	    update_timer[playerid] = SetTimerEx("UpdateTime", 1000, false, "i", playerid);
 	    Freeze(playerid, 1);
 	    number_skin{playerid} = 0;
 	    CancelSelectTextDraw(playerid);
-	    // == == == [ Создание Аккаунта ] == == ==
+	    // == == == [ Г‘Г®Г§Г¤Г Г­ГЁГҐ ГЂГЄГЄГ ГіГ­ГІГ  ] == == ==
 	    pInfo[playerid][pLevel] = 1;
 	    pInfo[playerid][pSkin] = GetPlayerSkin(playerid);
 	    
@@ -793,7 +799,7 @@ public OnPlayerClickTextDraw(playerid, Text: clickedid)
 	}
 	return true;
 }
-// == == == == [ Свои Паблики ] == == == ==
+// == == == == [ Г‘ГўГ®ГЁ ГЏГ ГЎГ«ГЁГЄГЁ ] == == == ==
 public PlayerCheck(playerid)
 {
 	new rows,
@@ -840,9 +846,9 @@ public PlayerLogin(playerid)
 	    if(number_pass{playerid} == 3)
 	    {
 	        Pkick(playerid);
-	        return SCM(playerid, Color_FireBrick, !"Попытки на ввод пароля закончены. Введите /q[uit]");
+	        return SCM(playerid, Color_FireBrick, !"ГЏГ®ГЇГ»ГІГЄГЁ Г­Г  ГўГўГ®Г¤ ГЇГ Г°Г®Г«Гї Г§Г ГЄГ®Г­Г·ГҐГ­Г». Г‚ГўГҐГ¤ГЁГІГҐ /q[uit]");
 	    }
-	    static const fmt_str[] = "Неверный пароль. Осталось попыток: %d";
+	    static const fmt_str[] = "ГЌГҐГўГҐГ°Г­Г»Г© ГЇГ Г°Г®Г«Гј. ГЋГ±ГІГ Г«Г®Г±Гј ГЇГ®ГЇГ»ГІГ®ГЄ: %d";
 		new string[sizeof(fmt_str)];
 		format(string, sizeof(string), fmt_str, 3-number_pass{playerid});
 		SCM(playerid, Color_LightRed, string);
@@ -858,7 +864,7 @@ public CheckReferal(playerid, name[])
 	if(!rows)
 	{
 	    ShowReferal(playerid);
-	    return SCM(playerid, Color_Grey, !"Аккаунт не найден.");
+	    return SCM(playerid, Color_Grey, !"ГЂГЄГЄГ ГіГ­ГІ Г­ГҐ Г­Г Г©Г¤ГҐГ­.");
 	}
 	strmid(pInfo[playerid][pReferal], name, 0, strlen(name), MAX_PLAYER_NAME+1);
 	ShowSex(playerid);
@@ -873,7 +879,7 @@ public CheckReferal_2(playerid)
 	{
 	    pInfo[playerid][pMoney] += 100_000;
 	    SavePlayer(playerid, "Money", pInfo[playerid][pMoney], "d");
-	    SCM(playerid, Color_Yellow, !"Вы получаете 100.000$ за приглашенного игрока");
+	    SCM(playerid, Color_Yellow, !"Г‚Г» ГЇГ®Г«ГіГ·Г ГҐГІГҐ 100.000$ Г§Г  ГЇГ°ГЁГЈГ«Г ГёГҐГ­Г­Г®ГЈГ® ГЁГЈГ°Г®ГЄГ ");
 	    static fmt_str[] = "DELETE FROM `referal` WHERE `Name` = '%s' LIMIT 1";
 		new string[sizeof(fmt_str)+MAX_PLAYER_NAME-1];
 		mysql_format(dbHandle, string, sizeof(string), fmt_str, pInfo[playerid][pName]);
@@ -883,7 +889,7 @@ public CheckReferal_2(playerid)
 }
 public CheckLogin(playerid)
 {
-	SCM(playerid, Color_FireBrick, !"Время на авторизацию вышло. Введите /q[uit]");
+	SCM(playerid, Color_FireBrick, !"Г‚Г°ГҐГ¬Гї Г­Г  Г ГўГІГ®Г°ГЁГ§Г Г¶ГЁГѕ ГўГ»ГёГ«Г®. Г‚ГўГҐГ¤ГЁГІГҐ /q[uit]");
 	Pkick(playerid);
 	return true;
 }
@@ -912,85 +918,85 @@ public FastSpawn(playerid)
 	SpawnPlayer(playerid);
 	return true;
 }
-// == == == == [ Стоки ] == == == ==
+// == == == == [ Г‘ГІГ®ГЄГЁ ] == == == ==
 stock ShowLogin(playerid)
 {
-    static const fmt_str[] = "{FFFFFF}[Добро пожаловать]\n\n\
-		Логин: {A52A2A}[%s]{FFFFFF}\n\
-		Пинг: {A52A2A}[%d]{FFFFFF}\n\
-		Аккаунт: {FF0000}[занят]{FFFFFF}\n\n\
-		{999999}У вас есть 35 секунд, чтобы ввести{FFFFFF}\n\
-	Введите свой пароль:";
+    static const fmt_str[] = "{FFFFFF}[Г„Г®ГЎГ°Г® ГЇГ®Г¦Г Г«Г®ГўГ ГІГј]\n\n\
+		Г‹Г®ГЈГЁГ­: {A52A2A}[%s]{FFFFFF}\n\
+		ГЏГЁГ­ГЈ: {A52A2A}[%d]{FFFFFF}\n\
+		ГЂГЄГЄГ ГіГ­ГІ: {FF0000}[Г§Г Г­ГїГІ]{FFFFFF}\n\n\
+		{999999}Г“ ГўГ Г± ГҐГ±ГІГј 35 Г±ГҐГЄГіГ­Г¤, Г·ГІГ®ГЎГ» ГўГўГҐГ±ГІГЁ{FFFFFF}\n\
+	Г‚ГўГҐГ¤ГЁГІГҐ Г±ГўГ®Г© ГЇГ Г°Г®Г«Гј:";
 	new string[sizeof(fmt_str)+(-2+MAX_PLAYER_NAME)+(-2+5)];
 	format(string, sizeof(string), fmt_str, pInfo[playerid][pName], GetPlayerPing(playerid));
-	SPD(playerid, 8, DSP, "Авторизация", string, "•>>", "•><•");
+	SPD(playerid, 8, DSP, "ГЂГўГІГ®Г°ГЁГ§Г Г¶ГЁГї", string, "В•>>", "В•><В•");
 }
 stock ShowRegister(playerid)
 {
-    static const fmt_str[] = "{FFFFFF}[Добро пожаловать]\n\n\
-	Логин: {A52A2A}[%s]{FFFFFF}\n\
-	Пинг: {A52A2A}[%d]{FFFFFF}\n\
-	Аккаунт: {008000}[свободен]{FFFFFF}\n\n\
-	Придумайте свой пароль:";
+    static const fmt_str[] = "{FFFFFF}[Г„Г®ГЎГ°Г® ГЇГ®Г¦Г Г«Г®ГўГ ГІГј]\n\n\
+	Г‹Г®ГЈГЁГ­: {A52A2A}[%s]{FFFFFF}\n\
+	ГЏГЁГ­ГЈ: {A52A2A}[%d]{FFFFFF}\n\
+	ГЂГЄГЄГ ГіГ­ГІ: {008000}[Г±ГўГ®ГЎГ®Г¤ГҐГ­]{FFFFFF}\n\n\
+	ГЏГ°ГЁГ¤ГіГ¬Г Г©ГІГҐ Г±ГўГ®Г© ГЇГ Г°Г®Г«Гј:";
 	new string[sizeof(fmt_str)+(-2+MAX_PLAYER_NAME)+(-2+5)];
 	format(string, sizeof(string), fmt_str, pInfo[playerid][pName], GetPlayerPing(playerid));
-	SPD(playerid, 1, DSI, "Регистрация", string, "•>>", "•><•");
+	SPD(playerid, 1, DSI, "ГђГҐГЈГЁГ±ГІГ°Г Г¶ГЁГї", string, "В•>>", "В•><В•");
 }
 stock ShowPassCheck(playerid)
 {
-	SPD(playerid, 2, DSP, "[Подтверждение пароля]", "{FFFFFF}Подтвердите Свой {A52A2A}[Пароль]{FFFFFF}\n\
-	Чтобы продолжить {A52A2A}[Регитсрацию]{FFFFFF}:", "•>>", "•><•");
+	SPD(playerid, 2, DSP, "[ГЏГ®Г¤ГІГўГҐГ°Г¦Г¤ГҐГ­ГЁГҐ ГЇГ Г°Г®Г«Гї]", "{FFFFFF}ГЏГ®Г¤ГІГўГҐГ°Г¤ГЁГІГҐ Г‘ГўГ®Г© {A52A2A}[ГЏГ Г°Г®Г«Гј]{FFFFFF}\n\
+	Г—ГІГ®ГЎГ» ГЇГ°Г®Г¤Г®Г«Г¦ГЁГІГј {A52A2A}[ГђГҐГЈГЁГІГ±Г°Г Г¶ГЁГѕ]{FFFFFF}:", "В•>>", "В•><В•");
 }
 stock ShowEmail(playerid)
 {
-	SPD(playerid, 3, DSI, "[Электронная почта]", "{FFFFFF}Укажите правильно свою {A52A2A}[Электронною почту]{FFFFFF}\n\
-	В случае взлома или потери аккаунта{FFFFFF}\n\
-	Вы сможите восстановить Свой {A52A2A}[Аккаунт]{FFFFFF}:\n\
-	{DF8600}[Подсказка]{FFFFFF}:\n\
-	\t{008000}[]{FFFFFF}Электронная почта должна быть от 6-ти до 46-ти смволов\n\
-	\t{008000}[]{FFFFFF}Электронная почта должна состоять из цифр и латинских символов", "•>>", "<<•");
+	SPD(playerid, 3, DSI, "[ГќГ«ГҐГЄГІГ°Г®Г­Г­Г Гї ГЇГ®Г·ГІГ ]", "{FFFFFF}Г“ГЄГ Г¦ГЁГІГҐ ГЇГ°Г ГўГЁГ«ГјГ­Г® Г±ГўГ®Гѕ {A52A2A}[ГќГ«ГҐГЄГІГ°Г®Г­Г­Г®Гѕ ГЇГ®Г·ГІГі]{FFFFFF}\n\
+	Г‚ Г±Г«ГіГ·Г ГҐ ГўГ§Г«Г®Г¬Г  ГЁГ«ГЁ ГЇГ®ГІГҐГ°ГЁ Г ГЄГЄГ ГіГ­ГІГ {FFFFFF}\n\
+	Г‚Г» Г±Г¬Г®Г¦ГЁГІГҐ ГўГ®Г±Г±ГІГ Г­Г®ГўГЁГІГј Г‘ГўГ®Г© {A52A2A}[ГЂГЄГЄГ ГіГ­ГІ]{FFFFFF}:\n\
+	{DF8600}[ГЏГ®Г¤Г±ГЄГ Г§ГЄГ ]{FFFFFF}:\n\
+	\t{008000}[]{FFFFFF}ГќГ«ГҐГЄГІГ°Г®Г­Г­Г Гї ГЇГ®Г·ГІГ  Г¤Г®Г«Г¦Г­Г  ГЎГ»ГІГј Г®ГІ 6-ГІГЁ Г¤Г® 46-ГІГЁ Г±Г¬ГўГ®Г«Г®Гў\n\
+	\t{008000}[]{FFFFFF}ГќГ«ГҐГЄГІГ°Г®Г­Г­Г Гї ГЇГ®Г·ГІГ  Г¤Г®Г«Г¦Г­Г  Г±Г®Г±ГІГ®ГїГІГј ГЁГ§ Г¶ГЁГґГ° ГЁ Г«Г ГІГЁГ­Г±ГЄГЁГµ Г±ГЁГ¬ГўГ®Г«Г®Гў", "В•>>", "<<В•");
 }
 stock ShowReferal(playerid)
 {
-	SPD(playerid, 4, DSI, "[Реферал]", "{FFFFFF}Введите {A52A2A}[Ник игрока] {FFFFFF}пригласившего\n\
-	Вас на сервер:\n\
-	{DF8600}[Подсказка]{FFFFFF}:\n\n\
-	Достигнувши {A52A2A}Вами 6-го уровня{FFFFFF}, этот игрок\n\
-	\t{008000}[]{FFFFFF}Получит {DF8600}[120.000$]\n\
-	\t{008000}[]{FFFFFF}Получит {A52A2A}[VIP] - статус {FFFFFF}на {DF8600}[7 дней]\n\
-	\t{008000}[]{FFFFFF}Получит {A52A2A}[Донат] {FFFFFF}в размере {DF8600}[250 рублей]", "•><•", "•>>");
+	SPD(playerid, 4, DSI, "[ГђГҐГґГҐГ°Г Г«]", "{FFFFFF}Г‚ГўГҐГ¤ГЁГІГҐ {A52A2A}[ГЌГЁГЄ ГЁГЈГ°Г®ГЄГ ] {FFFFFF}ГЇГ°ГЁГЈГ«Г Г±ГЁГўГёГҐГЈГ®\n\
+	Г‚Г Г± Г­Г  Г±ГҐГ°ГўГҐГ°:\n\
+	{DF8600}[ГЏГ®Г¤Г±ГЄГ Г§ГЄГ ]{FFFFFF}:\n\n\
+	Г„Г®Г±ГІГЁГЈГ­ГіГўГёГЁ {A52A2A}Г‚Г Г¬ГЁ 6-ГЈГ® ГіГ°Г®ГўГ­Гї{FFFFFF}, ГЅГІГ®ГІ ГЁГЈГ°Г®ГЄ\n\
+	\t{008000}[]{FFFFFF}ГЏГ®Г«ГіГ·ГЁГІ {DF8600}[120.000$]\n\
+	\t{008000}[]{FFFFFF}ГЏГ®Г«ГіГ·ГЁГІ {A52A2A}[VIP] - Г±ГІГ ГІГіГ± {FFFFFF}Г­Г  {DF8600}[7 Г¤Г­ГҐГ©]\n\
+	\t{008000}[]{FFFFFF}ГЏГ®Г«ГіГ·ГЁГІ {A52A2A}[Г„Г®Г­Г ГІ] {FFFFFF}Гў Г°Г Г§Г¬ГҐГ°ГҐ {DF8600}[250 Г°ГіГЎГ«ГҐГ©]", "В•><В•", "В•>>");
 }
 stock ShowNations(playerid)
 {
-    SPD(playerid, 5, DSL, !"[Национальность]", !"Американская\n\
-    Китайская\n\
-	Итальянская\n\
-	Мексиканская\n\
-	Русский\n\
-	Украинская\n\
-	Филиппинская\n\
-	Японская", !"•>>", !"<<•");
+    SPD(playerid, 5, DSL, !"[ГЌГ Г¶ГЁГ®Г­Г Г«ГјГ­Г®Г±ГІГј]", !"ГЂГ¬ГҐГ°ГЁГЄГ Г­Г±ГЄГ Гї\n\
+    ГЉГЁГІГ Г©Г±ГЄГ Гї\n\
+	Г€ГІГ Г«ГјГїГ­Г±ГЄГ Гї\n\
+	ГЊГҐГЄГ±ГЁГЄГ Г­Г±ГЄГ Гї\n\
+	ГђГіГ±Г±ГЄГЁГ©\n\
+	Г“ГЄГ°Г ГЁГ­Г±ГЄГ Гї\n\
+	Г”ГЁГ«ГЁГЇГЇГЁГ­Г±ГЄГ Гї\n\
+	ГџГЇГ®Г­Г±ГЄГ Гї", !"В•>>", !"<<В•");
 }
 stock ShowAge(playerid)
 {
-    SPD(playerid, 6, DSI, !"[Возраст]", !"{FFFFFF}Введите возраст\n\
-	Вашего {A52A2A}[Персонажа]{FFFFFF}:\n\
-	{DF8600}[Подсказка]{FFFFFF}:\n\n\
-	\t{008000}[]{FFFFFF}Возраст от 1-го до 99-ти\n\
-	\t{008000}[]{FFFFFF}Возраст должен состоять из цифр", !"•>>", !"<<•");
+    SPD(playerid, 6, DSI, !"[Г‚Г®Г§Г°Г Г±ГІ]", !"{FFFFFF}Г‚ГўГҐГ¤ГЁГІГҐ ГўГ®Г§Г°Г Г±ГІ\n\
+	Г‚Г ГёГҐГЈГ® {A52A2A}[ГЏГҐГ°Г±Г®Г­Г Г¦Г ]{FFFFFF}:\n\
+	{DF8600}[ГЏГ®Г¤Г±ГЄГ Г§ГЄГ ]{FFFFFF}:\n\n\
+	\t{008000}[]{FFFFFF}Г‚Г®Г§Г°Г Г±ГІ Г®ГІ 1-ГЈГ® Г¤Г® 99-ГІГЁ\n\
+	\t{008000}[]{FFFFFF}Г‚Г®Г§Г°Г Г±ГІ Г¤Г®Г«Г¦ГҐГ­ Г±Г®Г±ГІГ®ГїГІГј ГЁГ§ Г¶ГЁГґГ°", !"В•>>", !"<<В•");
 }
 stock ShowSex(playerid)
 {
-	SPD(playerid, 7, DSM, !"[Пол]", !"{FFFFFF}Выберите {A52A2A}[Пол] {FFFFFF}Вашего\n\
-	персонажа{FFFFFF}\n\
-	За которого Вы будете играть {A52A2A}[Role Play]{FFFFFF}:", !"Мужской", !"Женский");
+	SPD(playerid, 7, DSM, !"[ГЏГ®Г«]", !"{FFFFFF}Г‚Г»ГЎГҐГ°ГЁГІГҐ {A52A2A}[ГЏГ®Г«] {FFFFFF}Г‚Г ГёГҐГЈГ®\n\
+	ГЇГҐГ°Г±Г®Г­Г Г¦Г {FFFFFF}\n\
+	Г‡Г  ГЄГ®ГІГ®Г°Г®ГЈГ® Г‚Г» ГЎГіГ¤ГҐГІГҐ ГЁГЈГ°Г ГІГј {A52A2A}[Role Play]{FFFFFF}:", !"ГЊГіГ¦Г±ГЄГ®Г©", !"Г†ГҐГ­Г±ГЄГЁГ©");
 }
 stock CheckRusText(string[], size = sizeof(string))
 {
     for(new i; i < size; i++)
 	switch(string[i])
 	{
-	    case 'А'..'Я', 'а'..'я', ' ': return true;
+	    case 'ГЂ'..'Гџ', 'Г '..'Гї', ' ': return true;
 	}
 	return false;
 }
@@ -1033,7 +1039,7 @@ stock SavePlayer(playerid, const field_name[], const set[], const type[])
 }
 stock PlayerTextDraws(playerid)
 {
-	// == == == [ Выбор Скина ] == == ==
+	// == == == [ Г‚Г»ГЎГ®Г° Г‘ГЄГЁГ­Г  ] == == ==
 	select_skin[playerid][0] = TextDrawCreate(535.177124, 334.000000, "usebox");
 	TextDrawLetterSize(select_skin[playerid][0], 0.000000, 8.044445);
 	TextDrawTextSize(select_skin[playerid][0], 426.696929, 0.000000);
@@ -1150,7 +1156,7 @@ stock PlayerTextDraws(playerid)
 	TextDrawSetProportional(select_skin[playerid][10], 1);
 	TextDrawSetSelectable(select_skin[playerid][10], true);
 }
-// == == == == [ Разное ] == == == ==
+// == == == == [ ГђГ Г§Г­Г®ГҐ ] == == == ==
 stock ConnectMySQL()
 {
 	dbHandle =mysql_connect(MySQL_Host, MySQL_User, MySQL_Base, MySQL_Pass);
