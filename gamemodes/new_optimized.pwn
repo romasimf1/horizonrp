@@ -1,4 +1,5 @@
 #include "modules/grove.inc"
+#include "modules/economy.inc"
 
 // =================== [ Инклуды ] ===================
 #include <a_samp>
@@ -104,6 +105,12 @@ enum PlayerData {
     pSex,
     pSkin,
     pMoney,
+    pBankAccount[17],
+    pCurrentJob,
+    pJobLevel,
+    pJobExperience,
+    pPayCheck,
+    pTotalEarned,
     pLevel,
     pFaction,
     pRank,
@@ -133,6 +140,7 @@ public OnGameModeInit() {
     EnableStuntBonusForAll(false);
     
     CreateRegistrationInterior();
+    InitializeEconomySystem();
     print("[LOAD] HorizonRP успешно загружен!");
     return 1;
 }
@@ -194,6 +202,48 @@ public OnPlayerRequestSpawn(playerid) {
     return 1;
 }
 
+public OnPlayerPickUpPickup(playerid, pickupid) {
+    // Проверяем работы
+    for(new i = 0; i < totalJobs; i++) {
+        if(pickupid == jobPickups[i]) {
+            ShowJobInfo(playerid, i);
+            return 1;
+        }
+    }
+    
+    // Проверяем банкоматы и банки
+    for(new i = 0; i < totalATMs; i++) {
+        if(pickupid == atmPickups[i]) {
+            if(ATMLocations[i][atmType] == 2) {
+                // Банк
+                ShowBankMenu(playerid);
+            } else {
+                // Банкомат
+                if(!HasBankAccount(playerid)) {
+                    SCM(playerid, COLOR_RED, "У вас нет банковского счета! Обратитесь в банк.");
+                    return 1;
+                }
+                SPD(playerid, DIALOG_ATM_PIN, DSP, "Банкомат - Введите PIN",
+                    "{FFFFFF}Введите ваш 4-значный PIN-код:", "Войти", "Отмена");
+            }
+            return 1;
+        }
+    }
+    
+    // Проверяем офисы
+    for(new i = 0; i < totalOffices; i++) {
+        if(pickupid == officePickups[i]) {
+            if(CityOffices[i][officeType] == 1 || CityOffices[i][officeType] == 2) {
+                // Мэрия или центр трудоустройства
+                ShowJobsList(playerid);
+            }
+            return 1;
+        }
+    }
+    
+    return 1;
+}
+
 public OnPlayerClickTextDraw(playerid, Text:clickedid) {
     if(clickedid == Text:INVALID_TEXT_DRAW && number_skin{playerid} > 0) {
         SelectTextDraw(playerid, COLOR_BROWN);
@@ -214,6 +264,12 @@ public OnPlayerClickTextDraw(playerid, Text:clickedid) {
 }
 
 public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
+    // Обрабатываем диалоги экономической системы
+    if(dialogid >= 1000 && dialogid <= 1020) {
+        OnEconomyDialogResponse(playerid, dialogid, response, listitem, inputtext);
+        return 1;
+    }
+    
     new len = strlen(inputtext);
     new val = strval(inputtext);
     
@@ -596,6 +652,12 @@ stock ClearPlayerData(playerid) {
     // Очистка данных игрока
     pInfo[playerid][pID] = 0;
     pInfo[playerid][pMoney] = 0;
+    pInfo[playerid][pBankAccount] = "";
+    pInfo[playerid][pCurrentJob] = 0;
+    pInfo[playerid][pJobLevel] = 0;
+    pInfo[playerid][pJobExperience] = 0;
+    pInfo[playerid][pPayCheck] = 0;
+    pInfo[playerid][pTotalEarned] = 0;
     pInfo[playerid][pLevel] = 1;
     pInfo[playerid][pFaction] = 0;
     pInfo[playerid][pRank] = 0;
@@ -623,12 +685,18 @@ stock LoadPlayerData(playerid) {
     cache_get_value_name(0, "Email", pInfo[playerid][pEmail], MAX_EMAIL_LEN + 1);
     cache_get_value_name(0, "Referal", pInfo[playerid][pReferal], MAX_PLAYER_NAME + 1);
     cache_get_value_name(0, "Date Reg", pInfo[playerid][pDateReg], 11);
+    cache_get_value_name(0, "BankAccount", pInfo[playerid][pBankAccount], 17);
     
     pInfo[playerid][pNations] = cache_get_value_name_int(0, "Nations");
     pInfo[playerid][pAge] = cache_get_value_name_int(0, "Age");
     pInfo[playerid][pSex] = cache_get_value_name_int(0, "Sex");
     pInfo[playerid][pSkin] = cache_get_value_name_int(0, "Skin");
     pInfo[playerid][pMoney] = cache_get_value_name_int(0, "Money");
+    pInfo[playerid][pCurrentJob] = cache_get_value_name_int(0, "CurrentJob");
+    pInfo[playerid][pJobLevel] = cache_get_value_name_int(0, "JobLevel");
+    pInfo[playerid][pJobExperience] = cache_get_value_name_int(0, "JobExperience");
+    pInfo[playerid][pPayCheck] = cache_get_value_name_int(0, "PayCheck");
+    pInfo[playerid][pTotalEarned] = cache_get_value_name_int(0, "TotalEarned");
     pInfo[playerid][pLevel] = cache_get_value_name_int(0, "Level");
 }
 
@@ -637,8 +705,10 @@ stock SavePlayerData(playerid) {
     
     new query[512];
     mysql_format(dbHandle, query, sizeof(query),
-        "UPDATE `users` SET `Money` = %d, `Level` = %d WHERE `ID` = %d",
-        pInfo[playerid][pMoney], pInfo[playerid][pLevel], pInfo[playerid][pID]
+        "UPDATE `users` SET `Money` = %d, `Level` = %d, `BankAccount` = '%e', `CurrentJob` = %d, `JobLevel` = %d, `JobExperience` = %d, `PayCheck` = %d, `TotalEarned` = %d WHERE `ID` = %d",
+        pInfo[playerid][pMoney], pInfo[playerid][pLevel], pInfo[playerid][pBankAccount], 
+        pInfo[playerid][pCurrentJob], pInfo[playerid][pJobLevel], pInfo[playerid][pJobExperience],
+        pInfo[playerid][pPayCheck], pInfo[playerid][pTotalEarned], pInfo[playerid][pID]
     );
     mysql_tquery(dbHandle, query);
 }
@@ -890,6 +960,32 @@ CMD:setmoney(playerid, params[]) {
     
     format(message, sizeof(message), "Вы установили игроку %s сумму $%d", pInfo[targetid][pName], amount);
     SCM(playerid, COLOR_GREEN, message);
+    return 1;
+}
+
+CMD:help(playerid, params[]) {
+    if(!login_check{playerid}) return SCM(playerid, COLOR_GREY, "Вы не авторизованы.");
+    
+    new string[1024];
+    strcat(string, "{FFFFFF}========== {FFFF00}HorizonRP - Команды{FFFFFF} ==========\n");
+    strcat(string, "{00FF00}РАБОТА:{FFFFFF}\n");
+    strcat(string, "/jobs - список всех работ\n");
+    strcat(string, "/work - начать работать\n");
+    strcat(string, "/stopwork - прекратить работу\n");
+    strcat(string, "/quitjob - уволиться с работы\n");
+    strcat(string, "/findjob - найти ближайшую работу\n\n");
+    strcat(string, "{00FF00}БАНК:{FFFFFF}\n");
+    strcat(string, "/bank - меню банка\n");
+    strcat(string, "/atm - банкомат\n");
+    strcat(string, "/findatm - найти ближайший банкомат/банк\n\n");
+    strcat(string, "{00FF00}ДЕНЬГИ:{FFFFFF}\n");
+    strcat(string, "/pay [ID] [сумма] - передать деньги игроку\n");
+    strcat(string, "/stats - статистика персонажа\n\n");
+    strcat(string, "{00FF00}ДРУГОЕ:{FFFFFF}\n");
+    strcat(string, "/gmx - перезагрузка сервера (админ)\n");
+    strcat(string, "/setmoney [ID] [сумма] - установить деньги (админ)");
+    
+    SPD(playerid, -1, DSM, "Помощь", string, "Закрыть", "");
     return 1;
 }
 
