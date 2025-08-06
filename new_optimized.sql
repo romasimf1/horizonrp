@@ -255,6 +255,176 @@ CREATE TABLE IF NOT EXISTS `server_stats` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- ==========================================
+-- Таблица работ
+-- ==========================================
+CREATE TABLE IF NOT EXISTS `jobs` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Name` varchar(64) NOT NULL,
+  `Description` text NOT NULL,
+  `MinLevel` tinyint(3) unsigned NOT NULL DEFAULT 1,
+  `MaxLevel` tinyint(3) unsigned NOT NULL DEFAULT 50,
+  `BaseSalary` int(11) NOT NULL DEFAULT 1000,
+  `BonusPerLevel` int(11) NOT NULL DEFAULT 50,
+  `RequiredSkin` smallint(5) unsigned DEFAULT NULL,
+  `WorkLocationX` float NOT NULL,
+  `WorkLocationY` float NOT NULL,
+  `WorkLocationZ` float NOT NULL,
+  `IsActive` tinyint(1) NOT NULL DEFAULT 1,
+  PRIMARY KEY (`ID`),
+  UNIQUE KEY `Name` (`Name`),
+  KEY `idx_level` (`MinLevel`, `MaxLevel`),
+  KEY `idx_active` (`IsActive`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Добавляем основные работы
+INSERT INTO `jobs` (`Name`, `Description`, `MinLevel`, `MaxLevel`, `BaseSalary`, `BonusPerLevel`, `RequiredSkin`, `WorkLocationX`, `WorkLocationY`, `WorkLocationZ`) VALUES
+('Грузчик', 'Загрузка и разгрузка товаров в порту Лос-Сантоса', 1, 10, 1500, 100, 27, 2751.64, -2454.12, 13.64),
+('Водитель автобуса', 'Перевозка пассажиров по городу', 3, 15, 2000, 150, 255, 1809.22, -1905.45, 13.38),
+('Дальнобойщик', 'Перевозка грузов между городами', 5, 20, 2500, 200, 8, 2197.43, -2663.32, 13.54),
+('Таксист', 'Перевозка пассажиров на такси', 2, 12, 1800, 120, 61, 1152.33, -1760.85, 13.59),
+('Механик', 'Ремонт и тюнинг автомобилей', 4, 18, 2200, 175, 50, 2386.23, -2077.44, 13.55),
+('Полицейский', 'Охрана правопорядка в городе', 8, 35, 3500, 300, 280, 1554.83, -1675.52, 16.20),
+('Медик', 'Оказание медицинской помощи', 6, 25, 3000, 250, 274, 1172.12, -1323.45, 15.40),
+('Пожарный', 'Тушение пожаров и спасательные операции', 7, 22, 2800, 225, 277, 1762.44, -1451.23, 13.52);
+
+-- ==========================================
+-- Таблица занятости игроков
+-- ==========================================
+CREATE TABLE IF NOT EXISTS `player_jobs` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `UserID` int(11) NOT NULL,
+  `JobID` int(11) NOT NULL,
+  `JobLevel` tinyint(3) unsigned NOT NULL DEFAULT 1,
+  `Experience` int(11) NOT NULL DEFAULT 0,
+  `TotalEarned` bigint(20) NOT NULL DEFAULT 0,
+  `WorkHours` int(11) NOT NULL DEFAULT 0,
+  `HiredDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `IsActive` tinyint(1) NOT NULL DEFAULT 1,
+  PRIMARY KEY (`ID`),
+  UNIQUE KEY `user_job` (`UserID`, `JobID`),
+  KEY `idx_job` (`JobID`),
+  KEY `idx_level` (`JobLevel`),
+  KEY `idx_active` (`IsActive`),
+  FOREIGN KEY (`UserID`) REFERENCES `users` (`ID`) ON DELETE CASCADE,
+  FOREIGN KEY (`JobID`) REFERENCES `jobs` (`ID`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ==========================================
+-- Таблица банковских счетов
+-- ==========================================
+CREATE TABLE IF NOT EXISTS `bank_accounts` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `UserID` int(11) NOT NULL,
+  `AccountNumber` varchar(16) NOT NULL,
+  `Balance` int(11) NOT NULL DEFAULT 0,
+  `AccountType` tinyint(2) NOT NULL DEFAULT 1 COMMENT '1-Дебетовый, 2-Кредитный',
+  `CreditLimit` int(11) NOT NULL DEFAULT 0,
+  `InterestRate` decimal(5,2) NOT NULL DEFAULT 0.05,
+  `LastInterest` timestamp NULL DEFAULT NULL,
+  `PIN` varchar(4) NOT NULL,
+  `IsBlocked` tinyint(1) NOT NULL DEFAULT 0,
+  `Created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`ID`),
+  UNIQUE KEY `UserID` (`UserID`),
+  UNIQUE KEY `AccountNumber` (`AccountNumber`),
+  KEY `idx_balance` (`Balance`),
+  KEY `idx_blocked` (`IsBlocked`),
+  FOREIGN KEY (`UserID`) REFERENCES `users` (`ID`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ==========================================
+-- Таблица банковских транзакций
+-- ==========================================
+CREATE TABLE IF NOT EXISTS `bank_transactions` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `FromAccountID` int(11) DEFAULT NULL,
+  `ToAccountID` int(11) DEFAULT NULL,
+  `Amount` int(11) NOT NULL,
+  `TransactionType` varchar(32) NOT NULL COMMENT 'deposit, withdraw, transfer, salary, fine',
+  `Description` varchar(255) DEFAULT NULL,
+  `Fee` int(11) NOT NULL DEFAULT 0,
+  `BalanceBefore` int(11) NOT NULL DEFAULT 0,
+  `BalanceAfter` int(11) NOT NULL DEFAULT 0,
+  `ProcessedBy` int(11) DEFAULT NULL COMMENT 'Кто обработал транзакцию',
+  `Created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`ID`),
+  KEY `idx_from_account` (`FromAccountID`),
+  KEY `idx_to_account` (`ToAccountID`),
+  KEY `idx_type` (`TransactionType`),
+  KEY `idx_created` (`Created`),
+  FOREIGN KEY (`FromAccountID`) REFERENCES `bank_accounts` (`ID`) ON DELETE SET NULL,
+  FOREIGN KEY (`ToAccountID`) REFERENCES `bank_accounts` (`ID`) ON DELETE SET NULL,
+  FOREIGN KEY (`ProcessedBy`) REFERENCES `users` (`ID`) ON DELETE SET NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ==========================================
+-- Таблица банкоматов и банков
+-- ==========================================
+CREATE TABLE IF NOT EXISTS `atm_locations` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Type` tinyint(2) NOT NULL COMMENT '1-ATM, 2-Bank',
+  `Name` varchar(64) NOT NULL,
+  `PosX` float NOT NULL,
+  `PosY` float NOT NULL,
+  `PosZ` float NOT NULL,
+  `Interior` tinyint(3) unsigned NOT NULL DEFAULT 0,
+  `VirtualWorld` int(11) NOT NULL DEFAULT 0,
+  `IsActive` tinyint(1) NOT NULL DEFAULT 1,
+  PRIMARY KEY (`ID`),
+  KEY `idx_type` (`Type`),
+  KEY `idx_active` (`IsActive`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Добавляем банки и банкоматы в Лос-Сантосе
+INSERT INTO `atm_locations` (`Type`, `Name`, `PosX`, `PosY`, `PosZ`) VALUES
+(2, 'Los Santos Bank - Downtown', 1481.02, -1722.85, 13.55),
+(2, 'Los Santos Bank - Commerce', 2315.95, -10.44, 26.74),
+(2, 'Los Santos Bank - Vinewood', 1038.23, -1339.84, 13.74),
+(1, 'ATM - Grove Street', 2229.18, -1721.71, 13.56),
+(1, 'ATM - Idlewood', 2105.37, -1806.50, 13.55),
+(1, 'ATM - East Los Santos', 2422.84, -1518.29, 24.00),
+(1, 'ATM - Unity Station', 1928.59, -1776.33, 13.55),
+(1, 'ATM - Jefferson', 2093.62, -1358.48, 24.52),
+(1, 'ATM - Ganton', 2325.89, -1645.13, 14.83),
+(1, 'ATM - Glen Park', 2001.23, -1114.34, 27.12);
+
+-- ==========================================
+-- Таблица мэрии и офисов трудоустройства
+-- ==========================================
+CREATE TABLE IF NOT EXISTS `city_offices` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Type` tinyint(2) NOT NULL COMMENT '1-City Hall, 2-Job Center, 3-Licensing',
+  `Name` varchar(64) NOT NULL,
+  `PosX` float NOT NULL,
+  `PosY` float NOT NULL,
+  `PosZ` float NOT NULL,
+  `Interior` tinyint(3) unsigned NOT NULL DEFAULT 0,
+  `VirtualWorld` int(11) NOT NULL DEFAULT 0,
+  `IsActive` tinyint(1) NOT NULL DEFAULT 1,
+  PRIMARY KEY (`ID`),
+  KEY `idx_type` (`Type`),
+  KEY `idx_active` (`IsActive`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Добавляем мэрию и центры трудоустройства
+INSERT INTO `city_offices` (`Type`, `Name`, `PosX`, `PosY`, `PosZ`) VALUES
+(1, 'Los Santos City Hall', 1481.02, -1722.85, 13.55),
+(2, 'Job Center - Downtown', 1368.12, -1279.89, 13.55),
+(2, 'Job Center - Commerce', 1153.44, -1440.23, 15.80),
+(3, 'DMV - Los Santos', 1494.32, -1770.45, 18.80);
+
+-- Обновляем таблицу пользователей для экономической системы
+ALTER TABLE `users` 
+ADD COLUMN `BankAccount` varchar(16) DEFAULT NULL AFTER `Money`,
+ADD COLUMN `CurrentJob` int(11) DEFAULT NULL AFTER `BankAccount`,
+ADD COLUMN `JobLevel` tinyint(3) unsigned NOT NULL DEFAULT 0 AFTER `CurrentJob`,
+ADD COLUMN `JobExperience` int(11) NOT NULL DEFAULT 0 AFTER `JobLevel`,
+ADD COLUMN `PayCheck` int(11) NOT NULL DEFAULT 0 AFTER `JobExperience`,
+ADD COLUMN `TotalEarned` bigint(20) NOT NULL DEFAULT 0 AFTER `PayCheck`,
+ADD INDEX `idx_bank_account` (`BankAccount`),
+ADD INDEX `idx_current_job` (`CurrentJob`);
+
+-- ==========================================
 -- Создание процедур для оптимизации
 -- ==========================================
 
